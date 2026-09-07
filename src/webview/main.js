@@ -83,15 +83,33 @@
   }
 
   function evaluateCurrentCode() {
+    // Force resume any Web Audio Context attached to window or audio elements
+    try {
+      const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+      if (window.__swirlAudioCtx && window.__swirlAudioCtx.state === 'suspended') {
+        window.__swirlAudioCtx.resume();
+      } else if (!window.__swirlAudioCtx && AudioCtxClass) {
+        window.__swirlAudioCtx = new AudioCtxClass();
+        window.__swirlAudioCtx.resume();
+      }
+    } catch (e) {
+      console.warn('[AUDIO:RESUME] Context notice:', e.message);
+    }
+
     const editor = getEditorInstance();
     if (editor) {
-      if (typeof editor.evaluate === 'function') {
-        editor.evaluate();
-      } else if (typeof editor.start === 'function') {
-        editor.start();
+      try {
+        if (typeof editor.evaluate === 'function') {
+          editor.evaluate();
+        } else if (typeof editor.start === 'function') {
+          editor.start();
+        }
+        updateTransportUI(true);
+        logToConsole('eval', 'Evaluated pattern and started audio transport.');
+      } catch (err) {
+        logToConsole('error', `Evaluation error: ${err.message}`);
+        console.error('[SWIRL:EVAL]', err);
       }
-      updateTransportUI(true);
-      logToConsole('eval', 'Evaluated pattern and started audio transport.');
 
       const currentCode = getEditorCode();
       if (vscode) {

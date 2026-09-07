@@ -145,7 +145,7 @@ function getWebviewContent(webview, extensionPath) {
   const styleUri = webview.asWebviewUri(vscode.Uri.file(path.join(baseDir, 'style.css')));
 
   // Replace Content Security Policy meta tag to strictly allow webview.cspSource
-  const cspMeta = `<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} https: data: blob:; script-src ${webview.cspSource} 'unsafe-inline' 'unsafe-eval' blob:; style-src ${webview.cspSource} 'unsafe-inline'; font-src ${webview.cspSource} data:; worker-src ${webview.cspSource} blob:; connect-src ${webview.cspSource} data: blob:;">`;
+  const cspMeta = `<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} https: data: blob:; script-src ${webview.cspSource} 'unsafe-inline' 'unsafe-eval' data: blob:; style-src ${webview.cspSource} 'unsafe-inline'; font-src ${webview.cspSource} data:; worker-src ${webview.cspSource} data: blob:; connect-src ${webview.cspSource} data: blob:;">`;
   html = html.replace(/<meta http-equiv="Content-Security-Policy"[^>]*>/i, cspMeta);
 
   // Inject base tag inside head
