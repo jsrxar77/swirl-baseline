@@ -1,0 +1,7 @@
+.DS_Store
+.agent/
+.vscode/
+scripts/
+node_modules/
+release/
+*.vsix

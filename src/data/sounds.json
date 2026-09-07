@@ -1,0 +1,520 @@
+{
+  "drumMachines": [
+    {
+      "id": "tr909",
+      "name": "Roland TR-909",
+      "category": "drum-machines",
+      "voices": [
+        "bd",
+        "sd",
+        "lt",
+        "mt",
+        "ht",
+        "cp",
+        "rs",
+        "hh",
+        "oh",
+        "cr",
+        "rd"
+      ]
+    },
+    {
+      "id": "tr808",
+      "name": "Roland TR-808",
+      "category": "drum-machines",
+      "voices": [
+        "bd",
+        "sd",
+        "lt",
+        "mt",
+        "ht",
+        "cp",
+        "rs",
+        "cb",
+        "hh",
+        "oh",
+        "cy",
+        "cl"
+      ]
+    },
+    {
+      "id": "tr707",
+      "name": "Roland TR-707",
+      "category": "drum-machines",
+      "voices": [
+        "bd",
+        "sd",
+        "lt",
+        "mt",
+        "ht",
+        "cp",
+        "rs",
+        "cb",
+        "hh",
+        "oh",
+        "cr",
+        "rd"
+      ]
+    },
+    {
+      "id": "tr606",
+      "name": "Roland TR-606",
+      "category": "drum-machines",
+      "voices": [
+        "bd",
+        "sd",
+        "lt",
+        "ht",
+        "hh",
+        "oh",
+        "cy"
+      ]
+    },
+    {
+      "id": "linndrum",
+      "name": "Linn LM-2 LinnDrum",
+      "category": "drum-machines",
+      "voices": [
+        "bd",
+        "sd",
+        "snare",
+        "hihat",
+        "openhh",
+        "tom",
+        "conga",
+        "cowbell",
+        "clap",
+        "tamb"
+      ]
+    },
+    {
+      "id": "cr78",
+      "name": "Roland CompuRhythm CR-78",
+      "category": "drum-machines",
+      "voices": [
+        "bd",
+        "sd",
+        "rim",
+        "cowbell",
+        "hihat",
+        "guiro",
+        "tambourine",
+        "bongo"
+      ]
+    },
+    {
+      "id": "oberheimdx",
+      "name": "Oberheim DMX",
+      "category": "drum-machines",
+      "voices": [
+        "bd",
+        "sd",
+        "tom",
+        "hh",
+        "oh",
+        "cr",
+        "rd",
+        "cp",
+        "rim"
+      ]
+    },
+    {
+      "id": "korgkr55",
+      "name": "Korg KR-55",
+      "category": "drum-machines",
+      "voices": [
+        "bd",
+        "sd",
+        "hh",
+        "oh",
+        "cy",
+        "conga",
+        "clave",
+        "cowbell"
+      ]
+    },
+    {
+      "id": "alesishr16",
+      "name": "Alesis HR-16",
+      "category": "drum-machines",
+      "voices": [
+        "bd",
+        "sd",
+        "tom",
+        "hh",
+        "oh",
+        "cr",
+        "cp",
+        "perc"
+      ]
+    },
+    {
+      "id": "casiorz1",
+      "name": "Casio RZ-1",
+      "category": "drum-machines",
+      "voices": [
+        "bd",
+        "sd",
+        "tom1",
+        "tom2",
+        "tom3",
+        "rim",
+        "clap",
+        "hh",
+        "oh",
+        "crash",
+        "ride"
+      ]
+    },
+    {
+      "id": "emusp12",
+      "name": "E-mu SP-1200",
+      "category": "drum-machines",
+      "voices": [
+        "bd",
+        "sd",
+        "rim",
+        "hh",
+        "oh",
+        "tom",
+        "clap",
+        "crash",
+        "ride"
+      ]
+    },
+    {
+      "id": "yamahary30",
+      "name": "Yamaha RY30",
+      "category": "drum-machines",
+      "voices": [
+        "bd",
+        "sd",
+        "tom",
+        "hh",
+        "oh",
+        "ride",
+        "crash",
+        "perc"
+      ]
+    }
+  ],
+  "synths": [
+    {
+      "id": "synth",
+      "name": "Strudel Default Synth",
+      "category": "synth",
+      "type": "web-audio",
+      "params": [
+        "cutoff",
+        "resonance",
+        "attack",
+        "decay",
+        "sustain",
+        "release"
+      ]
+    },
+    {
+      "id": "sine",
+      "name": "Sine Wave Oscillator",
+      "category": "oscillator",
+      "type": "web-audio",
+      "waveform": "sine"
+    },
+    {
+      "id": "sawtooth",
+      "name": "Sawtooth Oscillator",
+      "category": "oscillator",
+      "type": "web-audio",
+      "waveform": "sawtooth"
+    },
+    {
+      "id": "square",
+      "name": "Square Wave Oscillator",
+      "category": "oscillator",
+      "type": "web-audio",
+      "waveform": "square"
+    },
+    {
+      "id": "triangle",
+      "name": "Triangle Wave Oscillator",
+      "category": "oscillator",
+      "type": "web-audio",
+      "waveform": "triangle"
+    },
+    {
+      "id": "supersaw",
+      "name": "Supersaw Multi-Oscillator",
+      "category": "synth",
+      "type": "web-audio",
+      "params": [
+        "detune",
+        "voices"
+      ]
+    },
+    {
+      "id": "tone",
+      "name": "Simple Tone Generator",
+      "category": "synth",
+      "type": "web-audio",
+      "waveform": "triangle"
+    },
+    {
+      "id": "noise",
+      "name": "White / Pink Noise Generator",
+      "category": "noise",
+      "type": "web-audio"
+    },
+    {
+      "id": "pluck",
+      "name": "Karplus-Strong Plucked String",
+      "category": "physical-modeling",
+      "type": "web-audio",
+      "params": [
+        "decay",
+        "dampen"
+      ]
+    },
+    {
+      "id": "fmsynth",
+      "name": "2-Operator FM Synthesizer",
+      "category": "fm",
+      "type": "web-audio",
+      "params": [
+        "modIndex",
+        "modRatio"
+      ]
+    }
+  ],
+  "soundfonts": [
+    {
+      "id": "acoustic_grand_piano",
+      "name": "Acoustic Grand Piano",
+      "program": 0,
+      "category": "keyboard"
+    },
+    {
+      "id": "bright_acoustic_piano",
+      "name": "Bright Acoustic Piano",
+      "program": 1,
+      "category": "keyboard"
+    },
+    {
+      "id": "electric_grand_piano",
+      "name": "Electric Grand Piano",
+      "program": 2,
+      "category": "keyboard"
+    },
+    {
+      "id": "electric_piano_1",
+      "name": "Rhodes Electric Piano",
+      "program": 4,
+      "category": "keyboard"
+    },
+    {
+      "id": "electric_piano_2",
+      "name": "DX7 Electric Piano",
+      "program": 5,
+      "category": "keyboard"
+    },
+    {
+      "id": "harpsichord",
+      "name": "Harpsichord",
+      "program": 6,
+      "category": "keyboard"
+    },
+    {
+      "id": "drawbar_organ",
+      "name": "Drawbar Organ",
+      "program": 16,
+      "category": "organ"
+    },
+    {
+      "id": "church_organ",
+      "name": "Church Pipe Organ",
+      "program": 19,
+      "category": "organ"
+    },
+    {
+      "id": "acoustic_guitar_nylon",
+      "name": "Acoustic Guitar (Nylon)",
+      "program": 24,
+      "category": "guitar"
+    },
+    {
+      "id": "acoustic_guitar_steel",
+      "name": "Acoustic Guitar (Steel)",
+      "program": 25,
+      "category": "guitar"
+    },
+    {
+      "id": "electric_guitar_clean",
+      "name": "Electric Guitar Clean",
+      "program": 27,
+      "category": "guitar"
+    },
+    {
+      "id": "electric_guitar_overdrive",
+      "name": "Overdriven Guitar",
+      "program": 29,
+      "category": "guitar"
+    },
+    {
+      "id": "acoustic_bass",
+      "name": "Acoustic Upright Bass",
+      "program": 32,
+      "category": "bass"
+    },
+    {
+      "id": "electric_bass_finger",
+      "name": "Electric Bass (Finger)",
+      "program": 33,
+      "category": "bass"
+    },
+    {
+      "id": "slap_bass_1",
+      "name": "Slap Bass",
+      "program": 36,
+      "category": "bass"
+    },
+    {
+      "id": "synth_bass_1",
+      "name": "Analog Synth Bass",
+      "program": 38,
+      "category": "bass"
+    },
+    {
+      "id": "string_ensemble_1",
+      "name": "String Ensemble",
+      "program": 48,
+      "category": "strings"
+    },
+    {
+      "id": "synth_strings_1",
+      "name": "Synth Strings",
+      "program": 50,
+      "category": "strings"
+    },
+    {
+      "id": "trumpet",
+      "name": "Brass Trumpet",
+      "program": 56,
+      "category": "brass"
+    },
+    {
+      "id": "tenor_sax",
+      "name": "Tenor Saxophone",
+      "program": 66,
+      "category": "reed"
+    },
+    {
+      "id": "flute",
+      "name": "Orchestral Flute",
+      "program": 73,
+      "category": "pipe"
+    },
+    {
+      "id": "lead_1_square",
+      "name": "Lead 1 (Square)",
+      "program": 80,
+      "category": "synth-lead"
+    },
+    {
+      "id": "lead_2_sawtooth",
+      "name": "Lead 2 (Sawtooth)",
+      "program": 81,
+      "category": "synth-lead"
+    },
+    {
+      "id": "pad_1_new_age",
+      "name": "Pad 1 (New Age Fantasia)",
+      "program": 88,
+      "category": "synth-pad"
+    },
+    {
+      "id": "pad_2_warm",
+      "name": "Pad 2 (Warm Analog)",
+      "program": 89,
+      "category": "synth-pad"
+    }
+  ],
+  "sampleKits": [
+    {
+      "id": "bd",
+      "name": "Bass Drum / Kick (bd:0 .. bd:10)",
+      "category": "percussion",
+      "count": 11
+    },
+    {
+      "id": "sd",
+      "name": "Snare Drum (sd:0 .. sd:12)",
+      "category": "percussion",
+      "count": 13
+    },
+    {
+      "id": "hh",
+      "name": "Closed Hi-Hat (hh:0 .. hh:8)",
+      "category": "percussion",
+      "count": 9
+    },
+    {
+      "id": "oh",
+      "name": "Open Hi-Hat (oh:0 .. oh:4)",
+      "category": "percussion",
+      "count": 5
+    },
+    {
+      "id": "cp",
+      "name": "Hand Clap (cp:0 .. cp:4)",
+      "category": "percussion",
+      "count": 5
+    },
+    {
+      "id": "rim",
+      "name": "Rimshot (rim:0 .. rim:3)",
+      "category": "percussion",
+      "count": 4
+    },
+    {
+      "id": "cr",
+      "name": "Crash Cymbal (cr:0 .. cr:3)",
+      "category": "percussion",
+      "count": 4
+    },
+    {
+      "id": "rd",
+      "name": "Ride Cymbal (rd:0 .. rd:3)",
+      "category": "percussion",
+      "count": 4
+    },
+    {
+      "id": "cb",
+      "name": "Cowbell (cb:0 .. cb:2)",
+      "category": "percussion",
+      "count": 3
+    },
+    {
+      "id": "casio",
+      "name": "Casio VL-Tone Synthesized Percussion",
+      "category": "retro",
+      "count": 3
+    },
+    {
+      "id": "jazz",
+      "name": "Acoustic Jazz Drumkit",
+      "category": "acoustic",
+      "count": 8
+    },
+    {
+      "id": "metal",
+      "name": "Industrial Metallic Percussion",
+      "category": "industrial",
+      "count": 6
+    },
+    {
+      "id": "numbers",
+      "name": "Spoken Numbers Voice Synthesizer",
+      "category": "voice",
+      "count": 10
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swirl Standalone REPL</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="strudel-root">
+  <div class="strudel-container">
+    <header class="strudel-header">
+      <div class="brand">
+        <svg class="brand-logo" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Swirl / Vortex Spiral Icon -->
+          <path d="M12 2C6.48 2 2 6.48 2 12c0 3.31 1.61 6.25 4.09 8.08"/>
+          <path d="M12 6c-3.31 0-6 2.69-6 6 0 1.99.97 3.75 2.46 4.85"/>
+          <path d="M12 10a2 2 0 1 0 2 2"/>
+          <path d="M12 22c5.52 0 10-4.48 10-10 0-3.31-1.61-6.25-4.09-8.08"/>
+          <path d="M12 18c3.31 0 6-2.69 6-6 0-1.99-.97-3.75-2.46-4.85"/>
+        </svg>
+        <span class="brand-title">swirl</span>
+        <span id="app-version" class="brand-version">v0.1</span>
+        <span class="brand-subtitle">REPL (standalone)</span>
+      </div>
+      <div class="header-actions">
+        <button id="btn-play" class="action-btn action-play" title="Play / Evaluate (Ctrl+Enter)">
+          <span id="play-icon" class="action-icon">&#9654;</span> <span id="play-text">play</span>
+        </button>
+        <button id="btn-update" class="action-btn" title="Update pattern without stopping (Shift+Enter)">update</button>
+        <button id="btn-share" class="action-btn" title="Copy pattern code to clipboard">share</button>
+        <button id="btn-header-settings" class="action-btn" title="Open settings and theme switcher">settings</button>
+        <button id="btn-menu" class="action-btn menu-toggle" title="Toggle menu and tabs">&#9776;</button>
+      </div>
+    </header>
+
+    <div class="workspace-layout">
+      <main class="editor-pane">
+        <div id="editor-container" class="cm-wrapper">
+          <strudel-editor id="strudel-repl">
+            <!--
+s("[bd <hh oh>]*2").bank("tr909").dec(.4)
+            -->
+          </strudel-editor>
+        </div>
+        <div id="eval-flash" class="eval-flash-overlay"></div>
+      </main>
+
+      <aside id="strudel-drawer" class="drawer hidden">
+        <div class="drawer-header">
+          <button id="btn-close-drawer" class="btn-drawer-close" title="Close drawer">&#10005;</button>
+          <nav class="drawer-tabs">
+            <button class="tab-btn active" data-tab="patterns">patterns</button>
+            <button class="tab-btn" data-tab="sounds">sounds</button>
+            <button class="tab-btn" data-tab="reference">reference</button>
+            <button class="tab-btn" data-tab="export">export</button>
+            <button class="tab-btn" data-tab="console">console</button>
+            <button class="tab-btn" data-tab="settings">settings</button>
+          </nav>
+        </div>
+
+        <div class="drawer-content">
+          <!-- PATTERNS TAB -->
+          <div id="tab-patterns" class="tab-pane active">
+            <h2 class="pane-heading">patterns</h2>
+            <div id="patterns-view"></div>
+          </div>
+
+          <!-- SOUNDS TAB -->
+          <div id="tab-sounds" class="tab-pane">
+            <h2 class="pane-heading">sounds</h2>
+            <div id="sounds-view"></div>
+          </div>
+
+          <!-- REFERENCE TAB -->
+          <div id="tab-reference" class="tab-pane">
+            <h2 class="pane-heading">reference</h2>
+            <div id="reference-view"></div>
+          </div>
+
+          <!-- EXPORT TAB -->
+          <div id="tab-export" class="tab-pane">
+            <h2 class="pane-heading">export</h2>
+            <p class="pane-desc">Export your pattern or save it locally:</p>
+            <div class="export-actions">
+              <button id="btn-export-copy" class="btn-action">Copy Code to Clipboard</button>
+              <button id="btn-export-download-strudel" class="btn-action">Download .strudel Pattern File</button>
+              <button id="btn-export-download-js" class="btn-action">Download Standalone .js Script</button>
+            </div>
+          </div>
+
+          <!-- CONSOLE TAB -->
+          <div id="tab-console" class="tab-pane">
+            <div class="console-header">
+              <h2 class="pane-heading">console</h2>
+              <button id="btn-clear-console" class="btn-console-clear">clear</button>
+            </div>
+            <div id="console-output" class="console-feed">
+              <div class="console-line system">[SYSTEM] Strudel standalone local REPL initialized.</div>
+              <div class="console-line system">[STATUS] Ready for audio evaluation.</div>
+            </div>
+          </div>
+
+          <!-- SETTINGS TAB -->
+          <div id="tab-settings" class="tab-pane">
+            <h2 class="pane-heading">settings</h2>
+            <div id="settings-view-container"></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="strudel-footer">
+      <div class="footer-item">
+        <span class="label">ENGINE:</span>
+        <span id="engine-status" class="value">SWIRL REPL 1.3.0</span>
+      </div>
+      <div class="footer-item">
+        <span class="label">AUDIO:</span>
+        <span id="audio-status" class="value">STANDBY</span>
+      </div>
+      <div class="footer-item">
+        <span class="label">HIGHLIGHT:</span>
+        <span class="value">ACTIVE (MINI-LOCATION)</span>
+      </div>
+      <div class="footer-item">
+        <span class="label">HOST:</span>
+        <span class="value">127.0.0.1 (LOCAL ONLY)</span>
+      </div>
+    </footer>
+
+    <div id="toast-message" class="toast-overlay">Copied to clipboard!</div>
+  </div>
+
+  <script src="strudel-repl.js"></script>
+  <script src="modules/drawer-extension.js"></script>
+  <script src="modules/settings-controller.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

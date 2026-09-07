@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "extensions": [
+    {
+      "name": "sample-synth",
+      "entry": "./sample-synth/index.js",
+      "enabled": true,
+      "description": "Local subtractive synthesizer audio node without external dependencies."
+    }
+  ]
+}
