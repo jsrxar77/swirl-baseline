@@ -1,11 +1,17 @@
-# ARQUITECTURA DEL SISTEMA: STRUDEL LOCAL
+# ARQUITECTURA DEL SISTEMA: SWIRL LOCAL
 
-## 1. VISION GENERAL
-Strudel Local implementa una arquitectura de ejecucion dual disenada para operar de forma 100% offline sin dependencias de red externas:
-1. Extension para Antigravity IDE / VS Code (.vsix): Interfaz interactiva embebida en Webview con canal IPC postMessage seguro.
-2. Modulo Local Standalone: SPA local offline servida por un runtime ligero en Node.js para uso desacoplado del editor.
+## 1. VISION GENERAL Y REGLA DE ORO 0
+Swirl implementa una arquitectura dual estricta y desacoplada disenada para operar 100% offline y de forma inmutable frente a los bundles base de upstream:
+1. Modulo Local Standalone (Localhost): Servidor HTTP nativo en Node.js (src/standalone/server.js) escuchando estrictamente en http://127.0.0.1:3000/.
+2. Aplicacion Desktop Electron: Runtime nativo de escritorio (src/electron/main.js) que empaqueta la experiencia Swirl REPL con politicas de audio permisivas (--autoplay-policy=no-user-gesture-required).
 
-Ambas modalidades utilizan como estandar de interfaz el componente oficial Strudel REPL (@strudel/repl), integrando el editor CodeMirror, motor de evaluacion en tiempo real y visualizadores reactivos.
+Nota de gobernanza: La extension VSIX para VS Code queda formalmente descartada y fuera de alcance.
+
+Principios de Regla de Oro 0 integrados:
+- Inmutabilidad de Upstream: Todo archivo en src/baseline/repl/ permanece virgen sin modificaciones locales.
+- Resiliencia Offline de prebake(): Intercepcion transparente en el <head> de index.html para neutralizar fallos 503 o caidas de red contra raw.githubusercontent.com, garantizando que prebake() resuelva y beforeEval() no congele el scheduler.
+- Componente Web en Modulo ES: index-1NNF4L0p.js se carga mediante <script type="module"> para instanciar CodeMirror y <strudel-editor>.
+- Bus de Eventos Nativo: Comunicacion desacoplada via repl-evaluate y repl-stop.
 
 ---
 
@@ -13,35 +19,41 @@ Ambas modalidades utilizan como estandar de interfaz el componente oficial Strud
 
 ```mermaid
 flowchart TB
-    subgraph AntigravityIDE["Antigravity IDE / VS Code Host"]
-        ExtHost["Extension Backend (src/extension/extension.js)"]
-        CmdReg["Command Registry (strudel.openRepl, strudel.eval)"]
-        IPCHost["Webview IPC Handler"]
-        ExtHost --> CmdReg
-        ExtHost --> IPCHost
+    subgraph ElectronHost["Electron Desktop Runtime (src/electron/main.js)"]
+        ElecApp["Electron Browser Window"]
+        AudioSwitches["Autoplay Policy Switch: no-user-gesture-required"]
+        InternalBridge["Internal HTTP Listener Link"]
+        ElecApp --> AudioSwitches
+        ElecApp --> InternalBridge
     end
 
-    subgraph WebviewPanel["VS Code Webview Container"]
-        WV_DOM["DOM Container (src/webview/index.html)"]
-        WV_Client["Webview Client (src/webview/main.js)"]
-        REPL_Adapter["REPL Adapter (src/webview/repl-adapter.js)"]
-        CM6["CodeMirror Editor"]
-        AudioCtxWV["Decoupled AudioContext"]
-        WV_DOM --> WV_Client
-        WV_Client --> REPL_Adapter
-        REPL_Adapter --> CM6
-        REPL_Adapter --> AudioCtxWV
-    end
-
-    subgraph StandaloneApp["Standalone Local Environment"]
+    subgraph StandaloneApp["Standalone Local Environment (Localhost:3000)"]
         NodeServer["Local Offline Server (src/standalone/server.js)"]
-        StaticBundle["Precompiled Static Bundle"]
+        StaticBundle["Precompiled Static Bundle (dist/standalone/)"]
         StandDOM["SPA DOM (src/standalone/index.html)"]
-        AudioCtxStand["Browser AudioContext"]
         NodeServer --> StaticBundle
         StaticBundle --> StandDOM
-        StandDOM --> AudioCtxStand
     end
+
+    subgraph HeadInterceptors["Capa de Resiliencia Offline (HTML Head)"]
+        FetchHook["window.fetch Interceptor (raw.githubusercontent.com fallback)"]
+        ESLoader["ES Module Loader (index-1NNF4L0p.js)"]
+    end
+
+    subgraph CoreEngine["Strudel Upstream Engine (src/baseline/repl/ - Inmutable)"]
+        StrudelEditor["Web Component (<strudel-editor>)"]
+        CM6["CodeMirror 6 REPL Instance (zR)"]
+        AudioScheduler["Audio Scheduler & Drawer (X6)"]
+        WebAudioNodes["Web Audio API Context"]
+        StrudelEditor --> CM6
+        CM6 --> AudioScheduler
+        AudioScheduler --> WebAudioNodes
+    end
+
+    StandDOM --> HeadInterceptors
+    InternalBridge --> NodeServer
+    HeadInterceptors --> CoreEngine
+```
 
     subgraph ModularPlugins["Modular Plugins Layer (src/plugins/)"]
         PluginRegistry["Plugin Registry (registry.js)"]

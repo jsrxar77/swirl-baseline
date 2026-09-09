@@ -2,7 +2,7 @@
   "name": "swirl",
   "displayName": "Swirl",
   "description": "Offline-first Swirl live coding environment and dual-mode runtime for Antigravity IDE and VS Code",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "swirl",
   "engines": {
     "vscode": "^1.80.0",
@@ -33,6 +33,7 @@
   "scripts": {
     "start": "node src/standalone/server.js",
     "start:standalone": "node src/standalone/server.js",
+    "start:electron": "electron src/electron/main.js",
     "ports:check": "node scripts/check-ports.js",
     "ports:clean": "node scripts/clean-ports.js",
     "sync:content": "node scripts/sync-strudel-content.js",
@@ -42,12 +43,13 @@
     "build:standalone": "node scripts/build-standalone.js",
     "build": "node scripts/build-repl.js && node scripts/build-extension.js && node scripts/build-standalone.js",
     "package:vsix": "node scripts/package-vsix.js",
-    "install:ide": "\"/Applications/Antigravity IDE.app/Contents/Resources/app/bin/antigravity-ide\" --install-extension release/swirl-0.1.0.vsix --force",
+    "install:ide": "\"/Applications/Antigravity IDE.app/Contents/Resources/app/bin/antigravity-ide\" --install-extension release/swirl-0.1.1.vsix --force",
     "test:repl": "node scripts/test-repl.js",
     "test:offline": "node scripts/test-offline.js",
     "mcp:build": "node scripts/mcp-build.js",
     "mcp:check": "node scripts/mcp-check.js",
-    "release:bump": "node scripts/bump-version.js"
+    "release:bump": "node scripts/bump-version.js",
+    "git:push": "bash bin/devops-git-commit-push.sh"
   },
   "keywords": [
     "swirl",

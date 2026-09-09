@@ -92,9 +92,18 @@
         window.__swirlAudioCtx = new AudioCtxClass();
         window.__swirlAudioCtx.resume();
       }
+      if (typeof window.getAudioContext === 'function') {
+        const actx = window.getAudioContext();
+        if (actx && actx.state === 'suspended') {
+          actx.resume();
+        }
+      }
     } catch (e) {
       console.warn('[AUDIO:RESUME] Context notice:', e.message);
     }
+
+    // Trigger native Strudel evaluate event
+    document.dispatchEvent(new CustomEvent('repl-evaluate'));
 
     const editor = getEditorInstance();
     if (editor) {
@@ -124,6 +133,7 @@
   }
 
   function updateInPlace() {
+    document.dispatchEvent(new CustomEvent('repl-evaluate'));
     const editor = getEditorInstance();
     if (editor) {
       if (typeof editor.evaluate === 'function') {
@@ -135,6 +145,7 @@
   }
 
   function stopAudio() {
+    document.dispatchEvent(new CustomEvent('repl-stop'));
     const editor = getEditorInstance();
     if (editor && typeof editor.stop === 'function') {
       editor.stop();

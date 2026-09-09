@@ -5,6 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Swirl Standalone REPL</title>
   <link rel="stylesheet" href="style.css">
+  <script>
+    // Offline resilience: intercept sample catalog fetches that fail/503 offline so prebake resolves cleanly
+    (function() {
+      const _origFetch = window.fetch;
+      window.fetch = function(input, init) {
+        const url = typeof input === 'string' ? input : (input && input.url ? input.url : '');
+        if (url.includes('raw.githubusercontent.com') && url.endsWith('.json')) {
+          return _origFetch.apply(this, arguments).then(res => {
+            if (!res.ok) {
+              return new Response(JSON.stringify({}), { status: 200, headers: { 'Content-Type': 'application/json' } });
+            }
+            return res;
+          }).catch(() => {
+            return new Response(JSON.stringify({}), { status: 200, headers: { 'Content-Type': 'application/json' } });
+          });
+        }
+        return _origFetch.apply(this, arguments);
+      };
+    })();
+  </script>
 </head>
 <body class="strudel-root">
   <div class="strudel-container">
@@ -38,7 +58,7 @@
         <div id="editor-container" class="cm-wrapper">
           <strudel-editor id="strudel-repl">
             <!--
-s("[bd <hh oh>]*2").bank("tr909").dec(.4)
+note("<c3 e3 g3 b3>*2").s("sawtooth")
             -->
           </strudel-editor>
         </div>
@@ -95,7 +115,7 @@ s("[bd <hh oh>]*2").bank("tr909").dec(.4)
               <button id="btn-clear-console" class="btn-console-clear">clear</button>
             </div>
             <div id="console-output" class="console-feed">
-              <div class="console-line system">[SYSTEM] Strudel standalone local REPL initialized.</div>
+              <div class="console-line system">[SYSTEM] Swirl standalone local REPL initialized.</div>
               <div class="console-line system">[STATUS] Ready for audio evaluation.</div>
             </div>
           </div>
@@ -131,7 +151,7 @@ s("[bd <hh oh>]*2").bank("tr909").dec(.4)
     <div id="toast-message" class="toast-overlay">Copied to clipboard!</div>
   </div>
 
-  <script src="strudel-repl.js"></script>
+  <script type="module" src="index-1NNF4L0p.js"></script>
   <script src="modules/drawer-extension.js"></script>
   <script src="modules/settings-controller.js"></script>
   <script src="main.js"></script>
