@@ -7,6 +7,8 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
+const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'package.json'), 'utf8'));
+
 const PORT = parseInt(process.env.SWIRL_PORT || process.env.STRUDEL_PORT || '3000', 10);
 const HOST = '127.0.0.1';
 
@@ -72,6 +74,20 @@ const server = http.createServer((req, res) => {
 
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+
+    // Inject version from package.json dynamically for index.html
+    if (ext === '.html') {
+      const html = fs.readFileSync(filePath, 'utf8');
+      const shortVersion = 'v' + (pkg.version ? pkg.version.split('.').slice(0, 2).join('.') : '0.1');
+      const injected = html.replace(
+        /<span id="app-version"[^>]*>[^<]*<\/span>/i,
+        `<span id="app-version" class="brand-version">${shortVersion}</span>`
+      );
+      const buf = Buffer.from(injected, 'utf8');
+      res.writeHead(200, { 'Content-Type': contentType, 'Content-Length': buf.length, 'Cache-Control': 'no-cache' });
+      res.end(buf);
+      return;
+    }
 
     res.writeHead(200, {
       'Content-Type': contentType,
