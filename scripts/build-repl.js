@@ -22,7 +22,7 @@ if (!fs.existsSync(distAssets)) {
 
 // 1. Copy and sync webview frontend files with package version
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "package.json"), "utf8"));
-const shortVersion = "v" + (pkg.version ? pkg.version.split(".").slice(0, 2).join(".") : "0.1");
+const fullVersion = "v" + (pkg.version || "0.1.1");
 
 const files = ['index.html', 'main.js', 'repl-adapter.js', 'style.css'];
 for (const file of files) {
@@ -31,7 +31,7 @@ for (const file of files) {
   if (fs.existsSync(src)) {
     if (file === "index.html") {
       let html = fs.readFileSync(src, "utf8");
-      html = html.replace(/<span id="app-version"[^>]*>[^<]*<\/span>/i, `<span id="app-version" class="brand-version">${shortVersion}</span>`);
+      html = html.replace(/<span id="app-version"[^>]*>[^<]*<\/span>/i, `<span id="app-version" class="brand-version">${fullVersion}</span>`);
       fs.writeFileSync(dest, html, "utf8");
     } else {
       fs.copyFileSync(src, dest);

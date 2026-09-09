@@ -78,10 +78,10 @@ const server = http.createServer((req, res) => {
     // Inject version from package.json dynamically for index.html
     if (ext === '.html') {
       const html = fs.readFileSync(filePath, 'utf8');
-      const shortVersion = 'v' + (pkg.version ? pkg.version.split('.').slice(0, 2).join('.') : '0.1');
+      const fullVersion = 'v' + (pkg.version || '0.1.1');
       const injected = html.replace(
         /<span id="app-version"[^>]*>[^<]*<\/span>/i,
-        `<span id="app-version" class="brand-version">${shortVersion}</span>`
+        `<span id="app-version" class="brand-version">${fullVersion}</span>`
       );
       const buf = Buffer.from(injected, 'utf8');
       res.writeHead(200, { 'Content-Type': contentType, 'Content-Length': buf.length, 'Cache-Control': 'no-cache' });
