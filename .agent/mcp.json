@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "strudel-engine-mcp": {
+      "command": "node",
+      "args": ["src/mcp/strudel-engine-mcp.js"],
+      "transport": "stdio",
+      "description": "Strudel Engine MCP server for mini-notation parsing, pattern dry-run, and soundfont inspection via stdio pipes."
+    },
+    "port-cleaner-mcp": {
+      "command": "node",
+      "args": ["src/mcp/port-cleaner-mcp.js"],
+      "transport": "stdio",
+      "description": "System port cleaner MCP server for deterministic port audit and orphan process termination via stdio pipes."
+    },
+    "project-filesystem-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "docs",
+        "src",
+        ".agent"
+      ],
+      "transport": "stdio",
+      "description": "Filesystem isolation MCP server scoped strictly to project root directories."
+    }
+  }
+}
