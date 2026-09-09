@@ -42,8 +42,6 @@
     "build:extension": "node scripts/build-extension.js",
     "build:standalone": "node scripts/build-standalone.js",
     "build": "node scripts/build-repl.js && node scripts/build-extension.js && node scripts/build-standalone.js",
-    "package:vsix": "node scripts/package-vsix.js",
-    "install:ide": "\"/Applications/Antigravity IDE.app/Contents/Resources/app/bin/antigravity-ide\" --install-extension release/swirl-0.1.1.vsix --force",
     "test:repl": "node scripts/test-repl.js",
     "test:offline": "node scripts/test-offline.js",
     "mcp:build": "node scripts/mcp-build.js",

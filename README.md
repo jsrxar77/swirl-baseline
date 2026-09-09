@@ -41,9 +41,9 @@ Entorno de live coding offline-first y runtime de arquitectura dual para Antigra
 - **Toggles de Comportamiento del Editor:** Conmutacion en caliente de ajuste de linea, numeros de linea, resaltado de linea activa, emparejamiento de corchetes, autocompletado inteligente y resaltado de patrones.
 - **Persistencia Local:** Configuracion preservada automaticamente en `localStorage` con opcion de restauracion de fabrica.
 
-### 4. Arquitectura Dual 100% Offline
-- **Extension Antigravity IDE / VS Code:** Ejecucion dentro de un Webview seguro con puente IPC bidireccional (`vscode.postMessage`).
+### 4. Arquitectura Offline: Localhost y Electron
 - **Modulo Standalone Local:** Servidor ligero en Node.js para ejecucion independiente en cualquier navegador (`http://127.0.0.1:3000`).
+- **Runtime Desktop Electron:** Aplicacion de escritorio nativa con audio autoplay garantizado (`npm run start:electron`).
 - **Aislamiento Estricto de Red (Regla de Oro 9):** Cero llamadas a CDNs o servicios externos en tiempo de ejecucion.
 
 ---
@@ -63,12 +63,13 @@ swirl-baseline/
 │   ├── BRIEF.md             # Requisitos y alcance del proyecto
 │   ├── DEVOPS.md            # Gestion de puertos y ciclo de ejecucion
 │   ├── FEATURES.md          # Catalogo de caracteristicas y capacidades
-│   └── PACKAGING.md         # Distribucion VSIX y standalone
-├── release/                 # Artefactos .vsix empaquetados para distribucion
+│   └── RELEASES.md          # Historial de versiones estables
+├── release/                 # Historial de versiones estables (versions.json)
 ├── src/
 │   ├── baseline/            # Nucleo oficial aislado de computacion temporal
 │   ├── data/                # Catalogos JSON offline (reference, sounds, patterns, themes)
-│   ├── extension/           # Backend host de la extension VS Code
+│   ├── electron/             # Runtime de escritorio Electron
+│   ├── extension/           # Backend host de la extension VS Code (desactivado)
 │   ├── mcp/                 # Servidores MCP por tuberias stdio
 │   ├── plugins/             # Capa desacoplada para sintes y sintaxis custom
 │   ├── standalone/          # Launcher y servidor local offline
@@ -103,8 +104,6 @@ swirl-baseline/
 | `npm run ports:clean` | Libera procesos que ocupan los puertos del servidor local |
 | `npm run sync:content` | Sincroniza catalogos de referencia, patrones y sonidos desde upstream Strudel |
 | `npm run swirl:sync` | Verifica y sincroniza el nucleo baseline de Strudel en `src/baseline/` |
-| `npm run package:vsix` | Empaqueta la extension en formato `.vsix` dentro de `release/` |
-| `npm run install:ide` | Instala el `.vsix` directamente en Antigravity IDE |
 | `npm run mcp:build` | Compila los servidores MCP locales (`stdio`) |
 | `npm run mcp:check` | Verifica la disponibilidad y estado de los servidores MCP |
 | `npm run release:bump` | Incrementa la version del proyecto y actualiza manifiestos y documentacion |
