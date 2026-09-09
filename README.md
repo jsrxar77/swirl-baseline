@@ -88,34 +88,27 @@ swirl-baseline/
 
 ### Scripts Disponibles
 
-```bash
-# Iniciar el entorno standalone offline (puerto 3000)
-npm start
-
-# Compilar todos los componentes (webview, extension, standalone)
-npm run build
-
-# Ejecutar pruebas del motor Swirl (parser, AST, scheduler)
-npm run test:repl
-
-# Auditar aislamiento de red (verifica 0 peticiones externas)
-npm run test:offline
-
-# Verificar colisiones de puertos (3000, 8080)
-npm run ports:check
-
-# Liberar puertos ocupados de forma limpia
-npm run ports:clean
-
-# Empaquetar la extension en formato .vsix dentro de release/
-npm run package:vsix
-
-# Instalar el paquete VSIX directamente en Antigravity IDE
-npm run install:ide
-
-# Sincronizar definiciones de catalogos locales
-npm run sync:content
-```
+| Comando | Descripcion |
+|---|---|
+| `npm start` | Inicia el servidor standalone offline en `http://127.0.0.1:3000` |
+| `npm run start:standalone` | Alias de `npm start`, inicia el servidor standalone local |
+| `npm run start:electron` | Inicia el runtime de escritorio nativo via Electron |
+| `npm run build` | Compila todos los modulos: webview, extension host y standalone |
+| `npm run build:repl` | Compila unicamente el bundle del webview REPL hacia `dist/webview/` |
+| `npm run build:extension` | Compila unicamente el host de la extension hacia `dist/extension/` |
+| `npm run build:standalone` | Genera la distribucion standalone en `dist/standalone/` |
+| `npm run test:repl` | Pruebas de motor (parser, AST, scheduler, transpiler, 5/5) |
+| `npm run test:offline` | Auditoria de aislamiento de red (0 peticiones externas) |
+| `npm run ports:check` | Verifica colisiones de puertos 3000 y 8080 |
+| `npm run ports:clean` | Libera procesos que ocupan los puertos del servidor local |
+| `npm run sync:content` | Sincroniza catalogos de referencia, patrones y sonidos desde upstream Strudel |
+| `npm run swirl:sync` | Verifica y sincroniza el nucleo baseline de Strudel en `src/baseline/` |
+| `npm run package:vsix` | Empaqueta la extension en formato `.vsix` dentro de `release/` |
+| `npm run install:ide` | Instala el `.vsix` directamente en Antigravity IDE |
+| `npm run mcp:build` | Compila los servidores MCP locales (`stdio`) |
+| `npm run mcp:check` | Verifica la disponibilidad y estado de los servidores MCP |
+| `npm run release:bump` | Incrementa la version del proyecto y actualiza manifiestos y documentacion |
+| `npm run git:push` | Ejecuta el flujo DevOps: audita cambios, confirma commit y sube a `origin/main` |
 
 ---
 
