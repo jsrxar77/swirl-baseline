@@ -6,6 +6,9 @@
 const fs = require('fs');
 const path = require('path');
 
+const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8'));
+const fullVersion = 'v' + (pkg.version || '0.1.1');
+
 const srcStandalone = path.join(__dirname, '..', 'src', 'standalone');
 const distWebview = path.join(__dirname, '..', 'dist', 'webview');
 const distStandalone = path.join(__dirname, '..', 'dist', 'standalone');
@@ -43,11 +46,16 @@ if (fs.existsSync(distWebview)) {
   }
 }
 
-// 3. Override index.html with standalone version if specific
+// 3. Override index.html with standalone version, injecting full version
 const standaloneHtml = path.join(srcStandalone, 'index.html');
 if (fs.existsSync(standaloneHtml)) {
-  fs.copyFileSync(standaloneHtml, path.join(distStandalone, 'index.html'));
-  console.log('[BUILD:STANDALONE] Installed standalone index.html');
+  let html = fs.readFileSync(standaloneHtml, 'utf8');
+  html = html.replace(
+    /<span id="app-version"[^>]*>[^<]*<\/span>/i,
+    `<span id="app-version" class="brand-version">${fullVersion}</span>`
+  );
+  fs.writeFileSync(path.join(distStandalone, 'index.html'), html, 'utf8');
+  console.log(`[BUILD:STANDALONE] Installed standalone index.html with version ${fullVersion}`);
 }
 
 console.log('[BUILD:STANDALONE] Standalone distribution created successfully in dist/standalone.');
